@@ -1,8 +1,10 @@
 class confluent_schema_registry::install {
   case $::osfamily {
     'Debian': {
-      if $::confluent_kafka::manage_repo && ! defined(Apt::Source['confluent']) {
+      if $::confluent_kafka::manage_repo and !defined(Apt::Source['confluent']) {
+
         include apt
+
         apt::source { 'confluent':
           location          => 'http://packages.confluent.io/deb/1.0',
           release           => 'stable main',
@@ -10,12 +12,12 @@ class confluent_schema_registry::install {
           repos             => '',
           required_packages => 'debian-keyring debian-archive-keyring',
           key               => {
-            'id'            => '1A77041E0314E6C5A486524E670540C841468433',
-            'source'        => 'http://packages.confluent.io/deb/1.0/archive.key',
+            'id'     => '1A77041E0314E6C5A486524E670540C841468433',
+            'source' => 'http://packages.confluent.io/deb/1.0/archive.key',
           },
           include           => {
-            'deb'           => true,
-            'src'           => false,
+            'deb' => true,
+            'src' => false,
           },
         }
       }
