@@ -39,6 +39,6 @@ class confluent_schema_registry::install {
   }
 
   file { '/etc/init.d/schema-registry':
-    source => 'puppet:///modules/schema-registry/schema-registry.init',
+    source => 'puppet:///modules/confluent_schema_registry/schema-registry.init',
   }
 }
