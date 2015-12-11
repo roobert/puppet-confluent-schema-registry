@@ -1,7 +1,7 @@
 class confluent_schema_registry::install {
   case $::osfamily {
     'Debian': {
-      if $::confluent_kafka::manage_repo {
+      if $::confluent_kafka::manage_repo && ! defined(Apt::Source['confluent']) {
         include apt
         apt::source { 'confluent':
           location          => 'http://packages.confluent.io/deb/1.0',
