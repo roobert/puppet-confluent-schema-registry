@@ -33,9 +33,9 @@ class confluent_schema_registry::install {
   }
 
   user { 'schema-registry':
-    ensure => present,
-    shell  => '/bin/false',
-    group  => Group['schema-registry'],
+    ensure  => present,
+    shell   => '/bin/false',
+    require => Group['schema-registry'],
   }
 
   file { '/etc/init.d/schema-registry':
