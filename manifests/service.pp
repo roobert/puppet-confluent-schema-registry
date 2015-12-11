@@ -1,4 +1,4 @@
-class confluent_schema_registry::config {
+class confluent_schema_registry::service {
   service { 'schema_registry':
     ensure     => 'schema-registry',
     enable     => true,
