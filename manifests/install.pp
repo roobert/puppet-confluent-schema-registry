@@ -1,4 +1,4 @@
-class confluent_schema_registry::install (
+class confluent_schema_registry::install {
   case $::osfamily {
     'Debian': {
       if $::confluent_kafka::manage_repo {
