@@ -1,0 +1,69 @@
+#!/bin/sh
+
+NAME=schema-registry
+CONFIG_PATH=/etc/schema-registry
+DEFAULT=/etc/default/$NAME
+SCHEMA_REGISTRY_PATH=/usr/bin
+SCHEMA_REGISTRY_USER=schema-registry
+SCHEMA_REGISTRY_GROUP=schema-registry
+
+SCHEMA_REGISTRY_PID="/var/run/$NAME.pid"
+
+
+# Make sure schema-registry is started with system locale
+if [ -r /etc/default/locale ]; then
+        . /etc/default/locale
+        export LANG
+fi
+
+. /lib/lsb/init-functions
+
+if [ -f "$DEFAULT" ]; then
+    . "$DEFAULT"
+fi
+
+case "$1" in
+  start)
+        # Start daemon.
+        echo "Starting $NAME";
+        start-stop-daemon --start -b -u "$SCHEMA_REGISTRY_USER" -g "$SCHEMA_REGISTRY_GROUP" \
+            -c "$SCHEMA_REGISTRY_USER" -m -p "$SCHEMA_REGISTRY_PID" \
+            -x "$SCHEMA_REGISTRY_PATH/schema-registry-start" -- $CONFIG_PATH/schema-registry.properties
+        ;;
+  stop)
+        # Stop daemons.
+        echo "Shutting down $NAME";
+        start-stop-daemon --stop --pidfile "$SCHEMA_REGISTRY_PID" \
+            --user "$SCHEMA_REGISTRY_USER" \
+            --retry=TERM/120/KILL/5
+        ;;
+  restart)
+        $0 stop
+        sleep 2
+        $0 start
+        ;;
+  status)
+       set +e
+       start-stop-daemon --test --start --pidfile "$SCHEMA_REGISTRY_PID" \
+                --user "$SCHEMA_REGISTRY_USER" --exec "java" \
+                >/dev/null 2>&1
+        if [ "$?" = "0" ]; then
+
+                if [ -f "$SCHEMA_REGISTRY_PID" ]; then
+                    log_success_msg "$NAME is not running, but pid file exists."
+                        exit 1
+                else
+                    log_success_msg "$NAME is not running."
+                        exit 3
+                fi
+        else
+                log_success_msg "$NAME is running with pid `cat $SCHEMA_REGISTRY_PID`"
+        fi
+        set -e
+        ;;
+  *)
+        echo "Usage: $0 {start|stop|restart|status}"
+        exit 1
+esac
+
+exit 0
