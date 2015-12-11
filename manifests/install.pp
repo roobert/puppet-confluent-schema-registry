@@ -40,5 +40,6 @@ class confluent_schema_registry::install {
 
   file { '/etc/init.d/schema-registry':
     source => 'puppet:///modules/confluent_schema_registry/schema-registry.init',
+    mode   => '0755',
   }
 }
