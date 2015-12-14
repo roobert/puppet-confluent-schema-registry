@@ -14,6 +14,23 @@
 
 # managed by puppet
 port=<%= @port %>
+debug=<%= @debug %>
+
 kafkastore.connection.url=<%= @kafkastore_connection_url %>
 kafkastore.topic=<%= @kafkastore_topic %>
-debug=<%= @debug %>
+kafkastore.topic.replication.factor=<%= @kafkastore_topic_replication_factor %>
+kafkastore.commit.interval.ms=<%= @kafkastore_commit_interval_ms %>
+kafkastore.init.timeout.ms=<%= @kafkastore_init_timeout_ms %>
+kafkastore.timeout.ms=<%= @kafkastore_timeout_ms %>
+kafkastore.zk.session.timeout.ms=<%= @kafkastore_zk_session_timeout_ms %>
+
+avro.compatibility.level=<%= @arvo_compatibility_level %>
+
+metric.reporters=<%= @metric_reporters %>
+metrics.jmx.prefix=<%= @metrics_jmx_prefix %>
+metrics.num.samples=<%= @metrics_num_samples %>
+metrics.sample.window.ms=<%= @metrics_sample_window_ms %>
+
+request.logger.name=<%= @request_logger_name %>
+
+shutdown.graceful.ms=<%= @shutdown_graceful_ms %>
