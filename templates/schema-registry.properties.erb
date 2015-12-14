@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # managed by puppet
-port=<%= @confluent_schema_registry['port'] %>
-kafkastore.connection.url=<%= @confluent_schema_registry['kafkastore_connection_url'] %>
-kafkastore.topic=<%= @confluent_schema_registry['kafkastore_topic'] %>
-debug=<%= @confluent_schema_registry['debug'] %>
+port=<%= scope['::confluent_schema_registry.port'] %>
+kafkastore.connection.url=<%= scope['confluent_schema_registry.kafkastore_connection_url'] %>
+kafkastore.topic=<%= scope['confluent_schema_registry.kafkastore_topic'] %>
+debug=<%= scope['confluent_schema_registry.debug'] %>
