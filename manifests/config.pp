@@ -9,5 +9,6 @@ class confluent_schema_registry::config (
     owner   => 'schema-registry',
     group   => 'schema-registry',
     mode    => '0644',
+    notify  => Service['schema-registry'],
   }
 }
