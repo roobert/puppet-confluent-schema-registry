@@ -24,7 +24,7 @@ class confluent_schema_registry::install {
     }
   }
 
-  package { 'confluent-schema-registry':
+  package { ['confluent-schema-registry','confluent-common','confluent-rest-utils']:
     ensure => $::confluent_schema_registry::version,
   }
 
