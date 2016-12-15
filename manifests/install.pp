@@ -38,8 +38,15 @@ class confluent_schema_registry::install {
     require => Group['schema-registry'],
   }
 
-  file { '/etc/init.d/schema-registry':
-    source => 'puppet:///modules/confluent_schema_registry/schema-registry.init',
-    mode   => '0755',
+  file { 
+    '/etc/init.d/schema-registry':
+      source => 'puppet:///modules/confluent_schema_registry/schema-registry.init',
+      mode   => '0755';
+    $::confluent_schema_registry::app_log_dir:
+      ensure  => directory,
+      owner   => 'schema-registry',
+      group   => 'schema-registry',
+      mode    => '0755',
+      require => Package['confluent-schema-registry'];
   }
 }

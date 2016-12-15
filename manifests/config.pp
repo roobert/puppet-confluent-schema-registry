@@ -16,11 +16,18 @@ class confluent_schema_registry::config (
   $request_logger_name                 = 'io.confluent.rest-utils.requests',
   $shutdown_graceful_ms                = '1000',
 ) {
-  file { '/etc/schema-registry/schema-registry.properties':
-    content => template('confluent_schema_registry/schema-registry.properties.erb'),
-    owner   => 'schema-registry',
-    group   => 'schema-registry',
-    mode    => '0644',
-    notify  => Service['schema-registry'],
+  file { 
+    '/etc/schema-registry/schema-registry.properties':
+      content => template('confluent_schema_registry/schema-registry.properties.erb'),
+      owner   => 'schema-registry',
+      group   => 'schema-registry',
+      mode    => '0644',
+      notify  => Service['schema-registry'];
+    '/etc/schema-registry/log4j.properties':
+      content => template('confluent_schema_registry/log4j.properties.erb'),
+      owner   => 'schema-registry',
+      group   => 'schema-registry',
+      mode    => '0644',
+      notify  => Service['schema-registry'];
   }
 }
