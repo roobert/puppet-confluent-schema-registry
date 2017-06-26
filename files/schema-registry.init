@@ -1,3 +1,4 @@
+#!/bin/sh
 ### BEGIN INIT INFO
 # Provides: schema-registry
 # Required-Start: $local_fs $remote_fs $network $time kafka
@@ -7,8 +8,6 @@
 # Short-Description: Start schema-registry at boot
 # Description: Enable schema-registry service.
 ### END INIT INFO
-
-#!/bin/sh
 
 NAME=schema-registry
 CONFIG_PATH=/etc/schema-registry
